@@ -303,11 +303,6 @@ describe('Maestro', function() {
 
 });
 
-describe('should support Switch')
-
-// 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
-
-// create a function that generates a random number given a prefix + a length;
 
 var generateCardNum = function(prefix, length) {
   prefix = prefix.toString();
@@ -318,6 +313,50 @@ var generateCardNum = function(prefix, length) {
   }
   return prefix + nums;
 };
+
+// Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+
+describe('should support Switch', function() {
+  var expect = chai.expect;
+  for (var length = 16; length <=19; length++){
+   
+   (function(length) {
+    it('has a prefix of 4903 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(4903, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 4905 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(4905, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 4911 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(4911, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 4936 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(4936, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 564182 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(564182, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 633110 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(633110, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 6333 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(6333, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    it('has a prefix of 6759 and a length of ' + length + '.', function() {
+      cardValue = generateCardNum(6759, length);
+      expect(detectNetwork(cardValue)).to.equal('Switch')
+    });
+    })(length)
+  }
+});
+
 
 describe('should support China UnionPay', function() {
 
@@ -332,12 +371,10 @@ describe('should support China UnionPay', function() {
     });
     it('has a prefix of ' + prefix + ' and a length of 17', function() {
       cardValue = generateCardNum(prefix, 17);
-      console.log(cardValue);
       expect(detectNetwork(cardValue)).to.equal('China UnionPay')
     });
     it('has a prefix of ' + prefix + ' and a length of 18', function() {
       cardValue = generateCardNum(prefix, 18);
-      console.log(cardValue);
       expect(detectNetwork(cardValue)).to.equal('China UnionPay')
     });
     it('has a prefix of ' + prefix + ' and a length of 19', function() {
@@ -355,12 +392,10 @@ describe('should support China UnionPay', function() {
     });
     it('has a prefix of ' + prefix + ' and a length of 17', function() {
       cardValue = generateCardNum(prefix, 17);
-      console.log(cardValue);
       expect(detectNetwork(cardValue)).to.equal('China UnionPay')
     });
     it('has a prefix of ' + prefix + ' and a length of 18', function() {
       cardValue = generateCardNum(prefix, 18);
-      console.log(cardValue);
       expect(detectNetwork(cardValue)).to.equal('China UnionPay')
     });
     it('has a prefix of ' + prefix + ' and a length of 19', function() {
@@ -378,12 +413,10 @@ describe('should support China UnionPay', function() {
     });
     it('has a prefix of ' + prefix + ' and a length of 17', function() {
       cardValue = generateCardNum(prefix, 17);
-      console.log(cardValue);
       expect(detectNetwork(cardValue)).to.equal('China UnionPay')
     });
     it('has a prefix of ' + prefix + ' and a length of 18', function() {
       cardValue = generateCardNum(prefix, 18);
-      console.log(cardValue);
       expect(detectNetwork(cardValue)).to.equal('China UnionPay')
     });
     it('has a prefix of ' + prefix + ' and a length of 19', function() {
