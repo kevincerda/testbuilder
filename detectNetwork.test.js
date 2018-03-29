@@ -369,6 +369,29 @@ describe('should support China UnionPay', function() {
     });
   })(prefix)
   }
+  
+  for (var prefix = 6282; prefix <= 6288; prefix++) {
+  (function(prefix) {
+    it('has a prefix of ' + prefix + ' and a length of 16', function() {
+      cardValue = generateCardNum(prefix, 16);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 17', function() {
+      cardValue = generateCardNum(prefix, 17);
+      console.log(cardValue);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 18', function() {
+      cardValue = generateCardNum(prefix, 18);
+      console.log(cardValue);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 19', function() {
+      cardValue = generateCardNum(prefix, 19);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+  })(prefix)
+  }
 
 
 });
