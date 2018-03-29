@@ -15,7 +15,7 @@ var prefix = {
   '647':'Discover', 
   '648':'Discover', 
   '649':'Discover', 
-  '6001':'Discover',
+  '6011':'Discover',
   '51':'MasterCard',
   '52':'MasterCard',
   '53':'MasterCard',
