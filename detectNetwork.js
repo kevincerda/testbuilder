@@ -7,6 +7,10 @@
 //   1. The first few numbers (called the prefix)
 //   2. The number of digits in the number (called the length)
 
+// China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+// Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+
+
 var prefix = {
   '65':'Discover',
   '644':'Discover',
@@ -21,6 +25,24 @@ var prefix = {
   '53':'MasterCard',
   '54':'MasterCard',
   '55':'MasterCard',
+  '624':'China UnionPay',
+  '625':'China UnionPay',
+  '626':'China UnionPay',
+  '6282':'China UnionPay',
+  '6283':'China UnionPay',
+  '6284':'China UnionPay',
+  '6285':'China UnionPay',
+  '6286':'China UnionPay',
+  '6287':'China UnionPay',
+  '6288':'China UnionPay',
+  '4903':'Switch',
+  '4905':'Switch',
+  '4911':'Switch',
+  '4936':'Switch',
+  '564182':'Switch',
+  '633110':'Switch',
+  '6333':'Switch',
+  '6759':'Switch',
   '4':'Visa',
   '34':'American Express',
   '37':'American Express',
@@ -58,6 +80,8 @@ var detectNetwork = function(cardNumber) {
       return 'Discover';
   } else if ((cardNumber.length === 12 || cardNumber.length === 13 || cardNumber.length === 14 || cardNumber.length === 15 || cardNumber.length === 16 || cardNumber.length === 17 || cardNumber.length === 18 || cardNumber.length === 19) && (findPre(cardNumber) === 'Maestro')) {
       return 'Maestro';
+  } else if ((cardNumber.length === 16 || cardNumber.length === 17 || cardNumber.length === 18 || cardNumber.length === 19) && (findPre(cardNumber) === 'China UnionPay' || (parseInt(cardNumber.slice(0,6)) >= 622126) && (parseInt(cardNumber.slice(0,6)) <= 622925))) {
+  		return 'China UnionPay';
   }
 }
  
