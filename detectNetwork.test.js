@@ -303,8 +303,74 @@ describe('Maestro', function() {
 
 });
 
-  //Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
-
-
-describe('should support China UnionPay')
 describe('should support Switch')
+
+// 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+
+// create a function that generates a random number given a prefix + a length;
+
+var generateCardNum = function(prefix, length) {
+  prefix = prefix.toString();
+  length = length.toString();
+  var nums = '';
+  for (var i = 0; i < length - prefix.length; i += 1) {
+    nums += '0';
+  }
+  return prefix + nums;
+};
+
+describe('should support China UnionPay', function() {
+
+  var expect = chai.expect;
+  var cardValue;
+
+  for (var prefix = 624; prefix <= 626; prefix++) {
+  (function(prefix) {
+    it('has a prefix of ' + prefix + ' and a length of 16', function() {
+      cardValue = generateCardNum(prefix, 16);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 17', function() {
+      cardValue = generateCardNum(prefix, 17);
+      console.log(cardValue);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 18', function() {
+      cardValue = generateCardNum(prefix, 18);
+      console.log(cardValue);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 19', function() {
+      cardValue = generateCardNum(prefix, 19);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+  })(prefix)
+  }
+
+  for (var prefix = 622126; prefix <= 622925; prefix++) {
+  (function(prefix) {
+    it('has a prefix of ' + prefix + ' and a length of 16', function() {
+      cardValue = generateCardNum(prefix, 16);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 17', function() {
+      cardValue = generateCardNum(prefix, 17);
+      console.log(cardValue);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 18', function() {
+      cardValue = generateCardNum(prefix, 18);
+      console.log(cardValue);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+    it('has a prefix of ' + prefix + ' and a length of 19', function() {
+      cardValue = generateCardNum(prefix, 19);
+      expect(detectNetwork(cardValue)).to.equal('China UnionPay')
+    });
+  })(prefix)
+  }
+
+
+});
+
+
