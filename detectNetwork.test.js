@@ -319,7 +319,7 @@ var generateCardNum = function(prefix, length) {
 describe('should support Switch', function() {
   var expect = chai.expect;
   for (var length = 16; length <=19; length++){
-   
+   if (length !== 17) {
    (function(length) {
     it('has a prefix of 4903 and a length of ' + length + '.', function() {
       cardValue = generateCardNum(4903, length);
@@ -354,6 +354,7 @@ describe('should support Switch', function() {
       expect(detectNetwork(cardValue)).to.equal('Switch')
     });
     })(length)
+  }
   }
 });
 

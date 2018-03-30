@@ -11,55 +11,99 @@
 // Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
 
 
-var prefix = {
-  '65':'Discover',
-  '644':'Discover',
-  '645':'Discover', 
-  '646':'Discover',
-  '647':'Discover', 
-  '648':'Discover', 
-  '649':'Discover', 
-  '6011':'Discover',
-  '51':'MasterCard',
-  '52':'MasterCard',
-  '53':'MasterCard',
-  '54':'MasterCard',
-  '55':'MasterCard',
-  '624':'China UnionPay',
-  '625':'China UnionPay',
-  '626':'China UnionPay',
-  '6282':'China UnionPay',
-  '6283':'China UnionPay',
-  '6284':'China UnionPay',
-  '6285':'China UnionPay',
-  '6286':'China UnionPay',
-  '6287':'China UnionPay',
-  '6288':'China UnionPay',
-  '4903':'Switch',
-  '4905':'Switch',
-  '4911':'Switch',
-  '4936':'Switch',
-  '564182':'Switch',
-  '633110':'Switch',
-  '6333':'Switch',
-  '6759':'Switch',
-  '4':'Visa',
-  '34':'American Express',
-  '37':'American Express',
-  '38':'Diner\'s Club',
-  '39':'Diner\'s Club',
-  '5018':'Maestro',
-  '5020':'Maestro',
-  '5038':'Maestro',
-  '6304':'Maestro'
-}; 
+// var prefix = {
+//   '65':'Discover',
+//   '644':'Discover',
+//   '645':'Discover', 
+//   '646':'Discover',
+//   '647':'Discover', 
+//   '648':'Discover', 
+//   '649':'Discover', 
+//   '6011':'Discover',
+//   '51':'MasterCard',
+//   '52':'MasterCard',
+//   '53':'MasterCard',
+//   '54':'MasterCard',
+//   '55':'MasterCard',
+//   '624':'China UnionPay',
+//   '625':'China UnionPay',
+//   '626':'China UnionPay',
+//   '6282':'China UnionPay',
+//   '6283':'China UnionPay',
+//   '6284':'China UnionPay',
+//   '6285':'China UnionPay',
+//   '6286':'China UnionPay',
+//   '6287':'China UnionPay',
+//   '6288':'China UnionPay',
+//   '4':'Visa',
+//   '34':'American Express',
+//   '37':'American Express',
+//   '38':'Diner\'s Club',
+//   '39':'Diner\'s Club',
+//   '5018':'Maestro',
+//   '5020':'Maestro',
+//   '5038':'Maestro',
+//   '6304':'Maestro'
+// }; 
 
-function findPre (num){
-  for (var key in prefix){
-    if(num.startsWith(key)){
-      return prefix[key];
-    }
-  }
+// function findPre (num){
+//   for (var key in prefix){
+//     if(num.startsWith(key)){
+//       return prefix[key];
+//     }
+//   }
+// };
+
+const getPrefix = function(cardNumber, prefixLength) {
+	return parseInt(cardNumber.slice(0, prefixLength));
+};
+
+const checkDinersClub = function(cardNumber) {
+	const dcLength = [14];
+	const dcPrefix = [38, 39];
+	return dcLength.includes(cardNumber.length) && dcPrefix.includes(getPrefix(cardNumber, 2));
+};
+
+const checkAmericanExpress = function(cardNumber) {
+   const amLength = [15];
+   const amPrefix = [34, 37];
+   return amLength.includes(cardNumber.length) && amPrefix.includes(getPrefix(cardNumber, 2));
+};
+
+const checkVisa = function(cardNumber) {
+	const vLength = [13, 16, 19];
+	const vPrefix = [4];
+	return vLength.includes(cardNumber.length) && vPrefix.includes(getPrefix(cardNumber, 1));
+};
+
+const checkMasterCard = function(cardNumber) {
+	const mcLength = [16];
+	const mPrefix = [51, 52, 53, 54, 55]
+	return mcLength.includes(cardNumber.length) && mPrefix.includes(getPrefix(cardNumber, 2));
+};
+
+const checkDiscover = function(cardNumber) {
+	const dLength = [16, 19];
+	const dPrefix = [65, 644, 645, 646, 647, 648, 649, 6011]
+	return dLength.includes(cardNumber.length) && (dPrefix.includes(getPrefix(cardNumber, 2)) || dPrefix.includes(getPrefix(cardNumber, 3)) || dPrefix.includes(getPrefix(cardNumber, 4)));
+};
+
+const checkMaestro = function(cardNumber) {
+	const mLength = [12, 13, 14, 15, 16, 17, 18, 19]; 
+  const mPrefix = [5018, 5020, 5038, 6304];
+  return mLength.includes(cardNumber.length) && (mPrefix.includes(getPrefix(cardNumber,4)));
+};
+
+const checkChinaUnionPay = function(cardNumber) {
+	const cupLength = [16, 17, 18, 19];
+	const cupPrefix = [624, 625, 626, 6282, 6283, 6284, 6285, 6286, 6287, 6288];
+	return cupLength.includes(cardNumber.length) && ((cupPrefix.includes(getPrefix(cardNumber, 3)) || cupPrefix.includes(getPrefix(cardNumber, 4)) || (getPrefix(cardNumber, 6) >= 622126 && getPrefix(cardNumber, 6) <= 622925)));
+};
+
+const checkSwitch = function(cardNumber) {
+	const sLength = [16, 18, 19];
+	const sPrefix = [4903, 4905, 4911, 4936, 6333, 6759, 564182, 633110];
+	return sLength.includes(cardNumber.length) &&  sPrefix.includes(getPrefix(cardNumber, 4)) || sPrefix.includes(getPrefix(cardNumber, 6));
 };
 
 var detectNetwork = function(cardNumber) {
@@ -68,22 +112,22 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
-  if (cardNumber.length === 14 && (findPre(cardNumber) === 'Diner\'s Club')) {
-  	return 'Diner\'s Club';
-  } else if (cardNumber.length === 15 && (findPre(cardNumber) === 'American Express')) {
-  	  return 'American Express';
-  } else if ((cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19) && (findPre(cardNumber) === 'Visa')) {
-  	  return 'Visa';
-  } else if ((cardNumber.length === 16) && (findPre(cardNumber) === 'MasterCard')) {
-  	  return 'MasterCard';
-  } else if ((cardNumber.length === 16 || cardNumber.length === 19) && (findPre(cardNumber) === 'Discover')) {
-      return 'Discover';
-  } else if ((cardNumber.length === 12 || cardNumber.length === 13 || cardNumber.length === 14 || cardNumber.length === 15 || cardNumber.length === 16 || cardNumber.length === 17 || cardNumber.length === 18 || cardNumber.length === 19) && (findPre(cardNumber) === 'Maestro')) {
-      return 'Maestro';
-  } else if ((cardNumber.length === 16 || cardNumber.length === 17 || cardNumber.length === 18 || cardNumber.length === 19) && (findPre(cardNumber) === 'China UnionPay' || (parseInt(cardNumber.slice(0,6)) >= 622126) && (parseInt(cardNumber.slice(0,6)) <= 622925))) {
-  		return 'China UnionPay';
-  }
-}
- 
 
-// 5018, 5020, 5038, or 6304, and a length of 12-19.
+  if (checkDinersClub(cardNumber)) {
+  	return 'Diner\'s Club';
+  } else if (checkAmericanExpress(cardNumber)) {
+  	  return 'American Express';
+  } else if (checkSwitch(cardNumber)) {
+  	  return 'Switch';
+  } else if (checkVisa(cardNumber)) {
+  	  return 'Visa';
+  } else if (checkMasterCard(cardNumber)) {
+  	  return 'MasterCard';
+  } else if (checkDiscover(cardNumber)) {
+      return 'Discover';
+  } else if (checkMaestro(cardNumber)) {
+      return 'Maestro';
+  } else if (checkChinaUnionPay(cardNumber)) {
+  	  return 'China UnionPay';
+  }
+};
