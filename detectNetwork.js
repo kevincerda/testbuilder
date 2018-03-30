@@ -78,13 +78,13 @@ const checkVisa = function(cardNumber) {
 
 const checkMasterCard = function(cardNumber) {
 	const mcLength = [16];
-	const mPrefix = [51, 52, 53, 54, 55]
+	const mPrefix = [51, 52, 53, 54, 55];
 	return mcLength.includes(cardNumber.length) && mPrefix.includes(getPrefix(cardNumber, 2));
 };
 
 const checkDiscover = function(cardNumber) {
 	const dLength = [16, 19];
-	const dPrefix = [65, 644, 645, 646, 647, 648, 649, 6011]
+	const dPrefix = [65, 644, 645, 646, 647, 648, 649, 6011];
 	return dLength.includes(cardNumber.length) && (dPrefix.includes(getPrefix(cardNumber, 2)) || dPrefix.includes(getPrefix(cardNumber, 3)) || dPrefix.includes(getPrefix(cardNumber, 4)));
 };
 
@@ -103,14 +103,13 @@ const checkChinaUnionPay = function(cardNumber) {
 const checkSwitch = function(cardNumber) {
 	const sLength = [16, 18, 19];
 	const sPrefix = [4903, 4905, 4911, 4936, 6333, 6759, 564182, 633110];
-	return sLength.includes(cardNumber.length) &&  sPrefix.includes(getPrefix(cardNumber, 4)) || sPrefix.includes(getPrefix(cardNumber, 6));
+	return sLength.includes(cardNumber.length) && sPrefix.includes(getPrefix(cardNumber, 4)) || sPrefix.includes(getPrefix(cardNumber, 6));
 };
 
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
   // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
   // The American Express network always starts with a 34 or 37 and is 15 digits long
-
   // Once you've read this, go ahead and try to implement this function, then return to the console.
 
   if (checkDinersClub(cardNumber)) {
@@ -129,5 +128,6 @@ var detectNetwork = function(cardNumber) {
       return 'Maestro';
   } else if (checkChinaUnionPay(cardNumber)) {
   	  return 'China UnionPay';
-  }
+  }   
+
 };
