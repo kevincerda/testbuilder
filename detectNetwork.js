@@ -51,21 +51,12 @@ const checkSwitch = function(cardNumber) {
 };
 
 var detectNetwork = function(cardNumber) {
-  if (checkDinersClub(cardNumber)) {
-  	return 'Diner\'s Club';
-  } else if (checkAmericanExpress(cardNumber)) {
-  	  return 'American Express';
-  } else if (checkSwitch(cardNumber)) {
-  	  return 'Switch';
-  } else if (checkVisa(cardNumber)) {
-  	  return 'Visa';
-  } else if (checkMasterCard(cardNumber)) {
-  	  return 'MasterCard';
-  } else if (checkDiscover(cardNumber)) {
-      return 'Discover';
-  } else if (checkMaestro(cardNumber)) {
-      return 'Maestro';
-  } else if (checkChinaUnionPay(cardNumber)) {
-  	  return 'China UnionPay';
-  }
+	return checkDinersClub(cardNumber) ? 'Diner\'s Club' :
+				 checkAmericanExpress(cardNumber) ? 'American Express' :
+				 checkSwitch(cardNumber) ? 'Switch' :
+				 checkVisa(cardNumber) ? 'Visa' :
+				 checkMasterCard(cardNumber) ? 'MasterCard' :
+				 checkDiscover(cardNumber) ? 'Discover' :
+				 checkMaestro(cardNumber) ? 'Maestro' :
+				 checkChinaUnionPay(cardNumber) ? 'China UnionPay' :'Unknown Network'
 };
