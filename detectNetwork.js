@@ -52,11 +52,11 @@ const checkSwitch = function(cardNumber) {
 
 var detectNetwork = function(cardNumber) {
 	return checkDinersClub(cardNumber) ? 'Diner\'s Club' :
-				 checkAmericanExpress(cardNumber) ? 'American Express' :
-				 checkSwitch(cardNumber) ? 'Switch' :
-				 checkVisa(cardNumber) ? 'Visa' :
-				 checkMasterCard(cardNumber) ? 'MasterCard' :
-				 checkDiscover(cardNumber) ? 'Discover' :
-				 checkMaestro(cardNumber) ? 'Maestro' :
-				 checkChinaUnionPay(cardNumber) ? 'China UnionPay' :'Unknown Network'
+	checkAmericanExpress(cardNumber) ? 'American Express' :
+	checkSwitch(cardNumber) ? 'Switch' :
+	checkVisa(cardNumber) ? 'Visa' :
+	checkMasterCard(cardNumber) ? 'MasterCard' :
+	checkDiscover(cardNumber) ? 'Discover' :
+	checkMaestro(cardNumber) ? 'Maestro' :
+	checkChinaUnionPay(cardNumber) ? 'China UnionPay' :'Unknown Network'
 };
