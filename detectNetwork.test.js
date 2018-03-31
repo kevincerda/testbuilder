@@ -250,6 +250,7 @@ describe('should support China UnionPay', function() {
     });
   })}(prefix)
   }
+  
 });
 
 
