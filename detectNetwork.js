@@ -9,9 +9,9 @@ const checkDinersClub = function(cardNumber) {
 };
 
 const checkAmericanExpress = function(cardNumber) {
-   const amLength = [15];
-   const amPrefix = [34, 37];
-   return amLength.includes(cardNumber.length) && amPrefix.includes(getPrefix(cardNumber, 2));
+	const amLength = [15];
+	const amPrefix = [34, 37];
+	return amLength.includes(cardNumber.length) && amPrefix.includes(getPrefix(cardNumber, 2));
 };
 
 const checkVisa = function(cardNumber) {
@@ -33,9 +33,9 @@ const checkDiscover = function(cardNumber) {
 };
 
 const checkMaestro = function(cardNumber) {
-	const mLength = [12, 13, 14, 15, 16, 17, 18, 19]; 
-  const mPrefix = [5018, 5020, 5038, 6304];
-  return mLength.includes(cardNumber.length) && (mPrefix.includes(getPrefix(cardNumber,4)));
+	const mLength = [12, 13, 14, 15, 16, 17, 18, 19];
+	const mPrefix = [5018, 5020, 5038, 6304];
+	return mLength.includes(cardNumber.length) && (mPrefix.includes(getPrefix(cardNumber,4)));
 };
 
 const checkChinaUnionPay = function(cardNumber) {
